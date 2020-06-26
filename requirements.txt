@@ -1,0 +1,9 @@
+google
+boto3
+deepspeech
+editdistance
+requests
+soundfile
+ibm-watson
+gtts
+SpeechRecognition
