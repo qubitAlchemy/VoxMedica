@@ -46,7 +46,7 @@ Results based on the test performed on <b>Test-Clean Librispeech Data</b>
 Now, let us try out these models and cloud services and see where they stand out on the <b>Raw Kaggle dataset</b>.
 
 <strong> Results on Kaggle dataset: </strong>
-![](graphs/comp.png)
+![](Graphs/comp.png)
 
 <ol>
 <li> Amazon Medical Transcribe (<b>WER = 30.09%</b>) </li>
@@ -129,7 +129,9 @@ Based on the above experiments, two approaches can be followed to make a custom 
 
 <ul>
 <li>Train the DeepSpeech model on medical STT dataset, the required amount of data and computing resources are the limitations though.</li>
-<li>Generate custom STT dataset based on the attempts mentioned above and perform <b>Transfer Learning</b> on the Wav2Letter or DenseNet model trained on LibriSpeech dataset and incorporate a Decoder with CTC decoding to generate text.</li>
+<li>Generate custom STT dataset based on the attempts mentioned above and perform <b>Transfer Learning</b> on the Wav2Letter or DenseNet model trained on LibriSpeech dataset and incorporate a Decoder with CTC decoding to generate text.
+![](Graphs/polly.png)
+</li>
 </ul>
 
 
