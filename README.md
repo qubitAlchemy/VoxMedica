@@ -122,6 +122,16 @@ Medical Speech-to-Text data is extremely hard to find due to <b><i>HIPAA privacy
 <li>Using <b><i>Amazon Polly</i></b> which allows one to Listen, customize, and download speech with the following parameters <b>[<i>Engine = Standard, Language and Region = English, In, Voice = Raveena, Sampling rate = 16000Hz</i>]</b> </li>
 </li></ol>
 
+<h3><strong> Results from Amazon Polly generated TTS samples: <strong></h3>
+
+![](Graphs/polly.png)
+
+<ol>
+<li> Amazon Transcribe (<b>WER = 9.25%</b>)</li>
+<li> Mozilla DeepSpeech (<b>WER = 43.33%</b>)</li>
+<li> IBM Watson (<b>WER = 37.52%</b>)</li>
+<li> Speech Recognition Google's API (<b>WER = 69.53%</b>)</li>
+</ol>
 
 <h2> 3: Model: </h2>
 
@@ -130,7 +140,6 @@ Based on the above experiments, two approaches can be followed to make a custom 
 <ul>
 <li>Train the DeepSpeech model on medical STT dataset, the required amount of data and computing resources are the limitations though.</li>
 <li>Generate custom STT dataset based on the attempts mentioned above and perform <b>Transfer Learning</b> on the Wav2Letter or DenseNet model trained on LibriSpeech dataset and incorporate a Decoder with CTC decoding to generate text.
-![](Graphs/polly.png)
 </li>
 </ul>
 
