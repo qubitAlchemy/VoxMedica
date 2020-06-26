@@ -18,12 +18,12 @@ Volume, Energy, Pitch, Zero Crossing Rate, Spectral Centroid etc. as some additi
 
 <b> MFCC </b>
 
-![](graphs/mfcc.jpg)
+![](Graphs/mfcc.jpg)
 
 
 <b> Signal transformations to extract MFCC coefficients from an audio signal </b>
 
-![](graphs/mfccpipe.jpeg)
+![](Graphs/mfccpipe.jpeg)
 
 
 <h2>Metric: <b>Word Error Rate</b> </h2>
@@ -95,23 +95,42 @@ Now, let us try out these models and cloud services and see where they stand out
 <li> Normalise the pitch, volume and the speed of words spoken.</li>
 </ol>
 
-<h3> d: Further tests on Indic TTS dataset: </h3>
-In progress...
+<h3><strong> d: Further tests on Indic TTS dataset: <strong></h3>
+
+250 audio files each were sampled male and female sets of data. The audio files contains speech of native Hindi speakers dictating english sentences.
+
+![](Graphs/indic.png)
+
+<ol>
+<li> Amazon Transcribe (<b>WER = 10.68%</b>)</li>
+<li> Mozilla DeepSpeech (<b>WER = 13.19%</b>)</li>
+<li> IBM Watson (<b>WER = 20.84%</b>)</li>
+<li> Speech Recognition Google's API (<b>WER = 16.76%</b>)</li>
+</ol>
 
 
 <h2> 2: Generate Medical Speech-to-Text Data: </h2>
 
-Medical Speech-to-Text data is extremely hard to find due to <b><i>HIPAA privacy regulations</i></b>. Therefore, data was generated in two steps:
+Medical Speech-to-Text data is extremely hard to find due to <b><i>HIPAA privacy regulations</i></b>. Therefore, an attempt was made to generate our own Medical Speech-to-Text Data which could be used to train and test models in the future. 
 
 <ol>
-<li>Obtaining Medical Transcripts: Scrape MTSamples.com (https://github.com/curefit/care-transcribe-bot/blob/master/MedicalSpeechToTextDataGeneration/ScrapedMT.csv) . <b>MTSamples.com</b> [https://www.mtsamples.com/] is designed to give access to a big collection of transcribed medical reports. MTSamples.com contains sample transcription reports for many specialties and different work types.</li>
+<li>Obtaining Medical Transcripts: Scrape MTSamples.com (https://github.com/curefit/care-transcribe-bot/blob/master/Generated_Medical_STT_Data/ScrapedMT.csv) . <b>MTSamples.com</b> [https://www.mtsamples.com/] is designed to give access to a big collection of transcribed medical reports. MTSamples.com contains sample transcription reports for many specialties and different work types.</li>
 
-<li>Use <b><i>gTTS</i></b> (Google Text-to-Speech) engine on the transcriptions to generate corresponding speech data.</li>
-</ol>
+<li>Speech data was generated in the following two ways:
+<ul>
+<li>Using <b><i>gTTS</i></b> (Google Text-to-Speech) engine on the transcriptions to generate corresponding speech data.</li>
+<li>Using <b><i>Amazon Polly</i></b> which allows one to Listen, customize, and download speech with the following parameters <b>[<i>Engine = Standard, Language and Region = English, In, Voice = Raveena, Sampling rate = 16000Hz</i>]</b> </li>
+</li></ol>
 
 
 <h2> 3: Model: </h2>
-In progress...
+
+Based on the above experiments, two approaches can be followed to make a custom STT model:
+
+<ul>
+<li>Train the DeepSpeech model on medical STT dataset, the required amount of data and computing resources are the limitations though.</li>
+<li>Generate custom STT dataset based on the attempts mentioned above and perform <b>Transfer Learning</b> on the Wav2Letter or DenseNet model trained on LibriSpeech dataset and incorporate a Decoder with CTC decoding to generate text.</li>
+</ul>
 
 
 <h2> 4. Resources: </h2>
