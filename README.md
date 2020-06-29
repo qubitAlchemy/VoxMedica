@@ -158,18 +158,18 @@ Install DeepSpeech
 pip3 install deepspeech==0.6.0
 ```
 Download and unzip pretrained model
-'''
+```
 curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.6.0/deepspeech-0.6.0-models.tar.gz
-'''
+```
 Update the following file paths in deep.py
-'''
+```
 >>> model_file_path = 'deepspeech-0.6.0-models/output_graph.pbmm'
 >>> lm_file_path = 'deepspeech-0.6.0-models/lm.binary'
 >>> trie_file_path = 'deepspeech-0.6.0-models/trie'
 >>> lm_alpha = 0.75
 >>> lm_beta = 1.85
 >>> model.enableDecoderWithLM(lm_file_path, trie_file_path, lm_alpha, lm_beta)
-'''
+```
 
 <h2> 6. Resources: </h2>
 
