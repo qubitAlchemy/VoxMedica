@@ -60,7 +60,7 @@ Results based on the test performed on <b>Test-Clean Librispeech Data</b>
 Now, let us try out these models and cloud services and see where they stand out on the <b>Raw Kaggle dataset</b>.
 
 <strong> Results on Kaggle dataset: </strong>
-![](Graphs/comp.png)
+![](Graphs/kaggle.png)
 
 <ol>
 <li> Amazon Medical Transcribe (<b>WER = 30.09%</b>) </li>
@@ -104,7 +104,7 @@ Now, let us try out these models and cloud services and see where they stand out
 <h3> c: Preprocessing: </h3> 
 
 <ol>
-<li> Seperating out the Accent component from the signal. </li>
+<li> Seperating out the Accent component from the signal by dropping out features from MFCC. </li>
 <li> Noise removal. </li>
 <li> Normalise the pitch, volume and the speed of words spoken.</li>
 </ol>
@@ -147,7 +147,7 @@ An attempt was made to generate our own Medical Speech-to-Text Data which could 
 
 <h3><strong> Results from Amazon Polly generated TTS samples: <strong></h3>
 
-![](Graphs/polly.png)
+![](Graphs/awspolly.png)
 
 <ol>
 <li> Amazon Medical Transcribe (<b>WER = 9.25%</b>)</li>
