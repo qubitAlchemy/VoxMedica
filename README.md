@@ -11,6 +11,14 @@ A special corpus of Indian languages covering 13 major languages of India. It co
 [https://www.iitm.ac.in/donlab/tts/database.php]</li>
 </ul>
 
+As a part of Preprocessing the audio file were converted to <b>.wav</b> with the following format (as required by DeepSpeech):
+<ul>
+<li>Sampling Rate = <b>16 KHz</b></li>
+<li>Buffer int array = <b>16 bit</b></li>
+<li>Type = <b>Mono</b></li>
+<li>Order = <b>little-endian</b></li>
+</ul>
+
 <h2> Feature Extraction:  </h2>
 The feature analysis component of an Automated Speaker Recognition (ASR) system plays a crucial role in the overall performance of the system. There are many feature extraction techniques available, but ultimately we want to maximize the performance of these systems. From this point of view, the algorithms developed to compute feature components are analyzed.
 <ul>
@@ -114,10 +122,13 @@ Now, let us try out these models and cloud services and see where they stand out
 <li> Speech Recognition Google's API (<b>WER = 16.76%</b>)</li>
 </ol>
 
+<h2>3. Limitation</h2>
+Medical Speech-to-Text data is extremely hard to find due to <b><i>HIPAA privacy regulations</i></b>. Therefore, Medical data is not readily available, especially speech data.
 
-<h2> 2: Generate Medical Speech-to-Text Data: </h2>
 
-Medical Speech-to-Text data is extremely hard to find due to <b><i>HIPAA privacy regulations</i></b>. Therefore, an attempt was made to generate our own Medical Speech-to-Text Data which could be used to train and test models in the future. 
+<h2>4. Overcoming limitation of unavailability of parallel Speech-Text Datasets</h2>
+<h3> Generate Medical Speech-to-Text Data: </h3>
+An attempt was made to generate our own Medical Speech-to-Text Data which could be used to train and test models in the future. 
 
 <ol>
 <li>Obtaining Medical Transcripts: Scrape MTSamples.com (https://github.com/curefit/care-transcribe-bot/blob/master/Generated_Medical_STT_Data/ScrapedMT.csv) . <b>MTSamples.com</b> [https://www.mtsamples.com/] is designed to give access to a big collection of transcribed medical reports. MTSamples.com contains sample transcription reports for many specialties and different work types.</li>
@@ -125,7 +136,13 @@ Medical Speech-to-Text data is extremely hard to find due to <b><i>HIPAA privacy
 <li>Speech data was generated in the following two ways:
 <ul>
 <li>Using <b><i>gTTS</i></b> (Google Text-to-Speech) engine on the transcriptions to generate corresponding speech data.</li>
-<li>Using <b><i>Amazon Polly</i></b> which allows one to Listen, customize, and download speech with the following parameters <b>[<i>Engine = Standard, Language and Region = English, In, Voice = Raveena, Sampling rate = 16000Hz</i>]</b> </li>
+<li>Using <b><i>Amazon Polly</i></b> which allows one to Listen, customize, and download speech was used with the following parameters:
+    <ul>
+    <li>Engine = <b>Standard</b> [<b><i>Note: </i></b>Engine = Neural results in more natural human-like speech but there are limitations on Region (In is not available)]</li> 
+    <li>Language and Region = <b>English, In</b></li>
+    <li>Voice = <b>Raveena</b></li>
+    <li>Sampling rate = <b>16000Hz</b></li> 
+    </ul></li>
 </li></ol>
 
 <h3><strong> Results from Amazon Polly generated TTS samples: <strong></h3>
@@ -133,13 +150,19 @@ Medical Speech-to-Text data is extremely hard to find due to <b><i>HIPAA privacy
 ![](Graphs/polly.png)
 
 <ol>
-<li> Amazon Transcribe (<b>WER = 9.25%</b>)</li>
+<li> Amazon Medical Transcribe (<b>WER = 9.25%</b>)</li>
 <li> Mozilla DeepSpeech (<b>WER = 43.33%</b>)</li>
 <li> IBM Watson (<b>WER = 37.52%</b>)</li>
 <li> Speech Recognition Google's API (<b>WER = 69.53%</b>)</li>
 </ol>
 
-<h2> 3: Model: </h2>
+A marginal difference can be noticed between <b><i>Amazon Medical Transcribe</i></b> and others. The following inferences can be drawn:
+<ul>
+<li>Other models haven't been trained on Medical exclusive dataset thus fail to identify most of the medical terms.</li>
+<li>The dataset was generated using Amazon Polly thus Amazon's other speech related services will perform well when encountered with similar audio type.</li>
+</ul>
+
+<h2> 3: Model (Future Work): </h2>
 
 Based on the above experiments, two approaches can be followed to make a custom STT model:
 
@@ -150,6 +173,42 @@ Based on the above experiments, two approaches can be followed to make a custom 
 </ul>
 
 <h2> 4. Useful commands: </h2>
+
+Install aws cli
+```
+pip install awscli
+```
+Download Transcribed json output files from S3 bucket
+```
+aws s3 cp s3://<bucket-name>/<dir-name> <local-dir-path> --recursive
+```
+<b>Use FFMPEG to apply conversions on Audio files</b>
+Download and unzip. Add bin to Environment Variables.
+'''
+https://github.com/amitk526/carebot/blob/master/Resources/ffmpeg/ffmpeg-4.2.3-win64-static.zip
+'''
+To convert all mp3 files in a directory in Linux:
+```
+for f in *.mp3; do ffmpeg -i "$f" -acodec pcm_s16le -ac 1 -ar 16000 "${f%.mp3}.wav"; done
+```
+Or Windows:
+```
+for /r %i in (*) do ffmpeg -i %i -acodec pcm_s16le -ac 1 -ar 16000 %i.wav
+```
+In Windows Batch file: 
+```
+for /r %%i in (*.mp3) do ffmpeg -i "%%i" -acodec pcm_s16le -ac 1 -ar 16000 "%i.wav"
+```
+You can see file information with file, ffmpeg, ffprobe, mediainfo among other utilities:
+```
+$ file hjl0bC.wav 
+hjl0bC.wav: RIFF (little-endian) data, WAVE audio, Microsoft PCM, 16 bit, mono 16000 Hz
+
+$ ffmpeg -i hjl0bC.wav
+[...]
+Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 16000 Hz, mono, s16, 256 kb/s
+```
+
 
 <h2> 5. Setting up DeepSpeech: </h2>
 
@@ -163,12 +222,18 @@ curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.6.0/deepspee
 ```
 Update the following file paths in deep.py
 ```
->>> model_file_path = 'deepspeech-0.6.0-models/output_graph.pbmm'
->>> lm_file_path = 'deepspeech-0.6.0-models/lm.binary'
->>> trie_file_path = 'deepspeech-0.6.0-models/trie'
->>> lm_alpha = 0.75
->>> lm_beta = 1.85
->>> model.enableDecoderWithLM(lm_file_path, trie_file_path, lm_alpha, lm_beta)
+model_file_path = 'deepspeech-0.6.0-models/output_graph.pbmm'
+lm_file_path = 'deepspeech-0.6.0-models/lm.binary'
+trie_file_path = 'deepspeech-0.6.0-models/trie'
+lm_alpha = 0.75
+lm_beta = 1.85
+```
+
+<h3> DeepSpeech Real-Time Streaming Transcriber </h3>
+
+Run this to transcribe files in real-time 
+```
+https://github.com/amitk526/carebot/blob/master/Utility/deepspeechStream.py
 ```
 
 <h2> 6. Resources: </h2>
