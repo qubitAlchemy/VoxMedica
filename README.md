@@ -11,8 +11,14 @@ A special corpus of Indian languages covering 13 major languages of India. It co
 [https://www.iitm.ac.in/donlab/tts/database.php]</li>
 </ul>
 
-<h2> Feature Extraction: <b>Mel-frequency cepstral coefficients (MFCC)</b> </h2>
+<h2> Feature Extraction:  </h2>
+The feature analysis component of an Automated Speaker Recognition (ASR) system plays a crucial role in the overall performance of the system. There are many feature extraction techniques available, but ultimately we want to maximize the performance of these systems. From this point of view, the algorithms developed to compute feature components are analyzed.
+<ul>
+<li><b>Gammatone Frequency Cepstral Coefficients (GFCC):</b> The GFCC features in recent studies have shown very good robustness against noise and acoustic change.</li>
+<li><b>Mel-Frequency Cepstral Coefficients (MFCC): </b>The MFCC are typically the “de facto” standard for speaker recognition systems because of their high accuracy and low complexity; however they are not very robust at the presence of additive noise. But MFCC are used in the current state-of-the-art ASR systems.</li>
+</ul>
 
+<h2><b>Mel-frequency cepstral coefficients (MFCC)</b></h2>
 MFCCs are the Mel Frequency Cepstral Coefficients. MFCC takes into account human perception for sensitivity at appropriate frequencies by converting the conventional frequency to Mel Scale, and are thus suitable for speech recognition tasks quite well (as they are suitable for understanding humans and the frequency at which humans speak/utter).
 Volume, Energy, Pitch, Zero Crossing Rate, Spectral Centroid etc. as some additional features along with MFCC can be used.
 
@@ -143,8 +149,29 @@ Based on the above experiments, two approaches can be followed to make a custom 
 </li>
 </ul>
 
+<h2> 4. Useful commands: </h2>
 
-<h2> 4. Resources: </h2>
+<h2> 5. Setting up DeepSpeech: </h2>
+
+Install DeepSpeech
+```
+pip3 install deepspeech==0.6.0
+```
+Download and unzip pretrained model
+'''
+curl -LO https://github.com/mozilla/DeepSpeech/releases/download/v0.6.0/deepspeech-0.6.0-models.tar.gz
+'''
+Update the following file paths in deep.py
+'''
+>>> model_file_path = 'deepspeech-0.6.0-models/output_graph.pbmm'
+>>> lm_file_path = 'deepspeech-0.6.0-models/lm.binary'
+>>> trie_file_path = 'deepspeech-0.6.0-models/trie'
+>>> lm_alpha = 0.75
+>>> lm_beta = 1.85
+>>> model.enableDecoderWithLM(lm_file_path, trie_file_path, lm_alpha, lm_beta)
+'''
+
+<h2> 6. Resources: </h2>
 
 <ol>
 <li>The pretrained English <i>acoustic model</i> and <i>language model</i> for DeepSpeech can be found at: [https://github.com/mozilla/DeepSpeech/releases/download/v0.6.0/deepspeech-0.6.0-models.tar.gz]</li>
