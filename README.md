@@ -46,6 +46,11 @@ Word error rate (WER) is defined as the ratio of [Levenstein distance](https://e
 between words in a reference transcript and words in the output of the speech-to-text engine, to the number of
 words in the reference transcript
 
+<h2>CTC: <b>Connectionist Temporal Classification</b> </h2>
+Connectionist temporal classification (CTC) is a type of neural network output and associated scoring function, for training recurrent neural networks (RNNs) such as LSTM networks to tackle sequence problems where the timing is variable. It can be used for tasks like on-line handwriting recognition or recognizing phonemes in speech audio.
+
+Refer this to know how it works: [https://machinelearning-blog.com/2018/09/05/753/]
+
 <h2> 1: Experimentation: </h2>
 
 <h3> a: Testing different Speech-To-Text Models and Cloud-Services: </h3>
@@ -59,7 +64,9 @@ Results based on the test performed on <b>Test-Clean Librispeech Data</b>
 
 Now, let us try out these models and cloud services and see where they stand out on the <b>Raw Kaggle dataset</b>.
 
-<strong> Results on Kaggle dataset: </strong>
+<h4><b><i>Pricing of Amazon Transcribe:</i></b> Amazon Transcribe API (for both streaming and batch transcription) is billed monthly at a rate of $0.0004 per second. Usage is billed in one-second increments, with a minimum per request charge of 15 seconds.</h4>
+
+<h4><strong> Results on Kaggle dataset: </strong></h4>
 ![](Graphs/kaggle.png)
 
 <ol>
@@ -168,7 +175,7 @@ Based on the above experiments, two approaches can be followed to make a custom 
 
 <ul>
 <li>Train the DeepSpeech model on medical STT dataset, the required amount of data and computing resources are the limitations though.</li>
-<li>Generate custom STT dataset based on the attempts mentioned above and perform <b>Transfer Learning</b> on the Wav2Letter or DenseNet model trained on LibriSpeech dataset and incorporate a Decoder with CTC decoding to generate text.
+<li>Generate custom STT dataset based on the attempts mentioned above and perform <b>Transfer Learning</b> on the Wav2Letter [DenseNet model] trained on LibriSpeech dataset and incorporate a Decoder with CTC decoding to generate text.
 </li>
 </ul>
 
@@ -231,10 +238,7 @@ lm_beta = 1.85
 
 <h3> DeepSpeech Real-Time Streaming Transcriber </h3>
 
-Run this to transcribe files in real-time 
-```
-https://github.com/amitk526/carebot/blob/master/Utility/deepspeechStream.py
-```
+Run this to transcribe files in real-time [https://github.com/amitk526/carebot/blob/master/Utility/deepspeechStream.py]
 
 <h2> 6. Resources: </h2>
 
