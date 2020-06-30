@@ -64,7 +64,7 @@ Results based on the test performed on <b>Test-Clean Librispeech Data</b>
 
 Now, let us try out these models and cloud services and see where they stand out on the <b>Raw Kaggle dataset</b>.
 
-<h4><b><i>Pricing of Amazon Transcribe:</i></b> Amazon Transcribe API (for both streaming and batch transcription) is billed monthly at a rate of $0.0004 per second. Usage is billed in one-second increments, with a minimum per request charge of 15 seconds.</h4>
+<h2><b><i>Pricing of Amazon Transcribe:</i></b> </h2> <h4>Amazon Transcribe API (for both streaming and batch transcription) is billed monthly at a rate of $0.0004 per second. Usage is billed in one-second increments, with a minimum per request charge of 15 seconds.</h4>
 
 <h4><strong> Results on Kaggle dataset: </strong></h4>
 
