@@ -1,4 +1,10 @@
-<h1> Experiments for voice based docs app </h1>
+# Carebot
+Experiments for voice based docs app
+Carebot is a research and experimentation repo for building a voice-based medical documentation app. It benchmarks speech-to-text (STT) engines and cloud services on medical and general audio, with **Word Error Rate (WER)** as the main metric.
+
+## What it does
+
+The project compares engines such as **Amazon Medical Transcribe**, **Mozilla DeepSpeech**, **IBM Watson**, and **Google Speech-to-Text** on datasets including LibriSpeech, Kaggle medical speech data, and Indic TTS (Indian-accent English). It also covers preprocessing (16 kHz mono WAV, noise handling, MFCC/GFCC features), third-party tools like Nuance Dragon and Suki, and synthetic data generation when real medical speech data is scarce (HIPAA limits availability).
 
 <h2> Link to Datasets: </h2>
 <ul>
