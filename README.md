@@ -1,5 +1,4 @@
 # Carebot
-Experiments for voice based docs app
 Carebot is a research and experimentation repo for building a voice-based medical documentation app. It benchmarks speech-to-text (STT) engines and cloud services on medical and general audio, with **Word Error Rate (WER)** as the main metric.
 
 ## What it does
